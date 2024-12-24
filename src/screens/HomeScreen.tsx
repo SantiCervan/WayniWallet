@@ -4,6 +4,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import ScrollSendAgain from '../components/ScrollSendAgain';
 import person from '../assets/icons/home.png';
 import {useNavigation} from '@react-navigation/native';
+import LatestTransactions from '../components/LatestTransactions';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -39,6 +40,7 @@ const HomeScreen = () => {
             Send Again
           </Text>
           <ScrollSendAgain />
+          <LatestTransactions />
         </View>
       </View>
     </SafeAreaProvider>

@@ -22,25 +22,27 @@ export default function ScrollSendAgain() {
   ];
 
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{gap: 12}}
-      className="pt-4">
-      {items.map(item => (
-        <TouchableOpacity
-          key={item.id}
-          className="rounded-xl w-20 h-24 items-center justify-center ">
-          <Image
-            source={item.image}
-            style={{width: 65, height: 65}}
-            resizeMode="contain"
-          />
-          <Text className="text-gray-600 text-center text-base">
-            {item.label}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <View className="h-32">
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{gap: 12}}
+        className="pt-4">
+        {items.map(item => (
+          <TouchableOpacity
+            key={item.id}
+            className="rounded-xl w-20 h-24 items-center justify-center ">
+            <Image
+              source={item.image}
+              style={{width: 65, height: 65}}
+              resizeMode="contain"
+            />
+            <Text className="text-gray-600 text-center text-base">
+              {item.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
