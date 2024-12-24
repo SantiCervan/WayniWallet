@@ -1,7 +1,6 @@
 import {View, Text} from 'react-native';
 import React, {ReactNode} from 'react';
 import BackButton from './BackButton';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 type HeaderContainerProps = {
   action: 'back' | 'home';
@@ -15,21 +14,19 @@ export default function HeaderContainer({
   children,
 }: HeaderContainerProps) {
   return (
-    <SafeAreaProvider>
-      <View className="bg-[#0FD08B] items-center h-full">
-        <View className="w-full py-6 px-3 flex flex-row items-center justify-between">
-          <View className="flex-1">
-            <BackButton action={action} />
-          </View>
-          <Text className="text-white text-2xl font-bold flex-1 text-center">
-            {label}
-          </Text>
-          <View className="flex-1" />
+    <View className="bg-[#0FD08B] items-center h-full">
+      <View className="w-full py-6 px-3 flex flex-row items-center justify-between">
+        <View className="flex-1">
+          <BackButton action={action} />
         </View>
-        <View className="bg-white w-full h-full rounded-t-[3rem]">
-          {children}
-        </View>
+        <Text className="text-white text-2xl font-bold flex-1 text-center">
+          {label}
+        </Text>
+        <View className="flex-1" />
       </View>
-    </SafeAreaProvider>
+      <View className="bg-white w-full h-full rounded-t-[3rem]">
+        {children}
+      </View>
+    </View>
   );
 }
