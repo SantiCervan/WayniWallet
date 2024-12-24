@@ -10,15 +10,15 @@ interface ItemsProps {
 
 export default function ScrollSendAgain() {
   const items: ItemsProps[] = [
-    {id: 1, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 2, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 3, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 4, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 5, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 6, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 7, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 8, image: require('../assets/icons/home.png'), label: 'person'},
-    {id: 9, image: require('../assets/icons/home.png'), label: 'person'},
+    {id: 1, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 2, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 3, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 4, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 5, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 6, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 7, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 8, image: require('../assets/images/person.png'), label: 'person'},
+    {id: 9, image: require('../assets/images/person.png'), label: 'person'},
   ];
 
   return (
