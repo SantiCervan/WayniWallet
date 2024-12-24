@@ -31,7 +31,7 @@ export default function TransactionCards({
         ) : (
           <Image
             source={img}
-            style={{width: 56, height: 56}}
+            style={{width: 50, height: 50}}
             resizeMode="contain"
           />
         )}
