@@ -4,10 +4,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import TransfersScreen from '../screens/TransfersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SendAgainScreen from '../screens/SendAgainScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-const Tabs = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -52,6 +55,15 @@ const Tabs = () => {
       <Tab.Screen name="Transfers" component={TransfersScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
+  );
+};
+
+const Tabs = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MainTabs" component={TabNavigator} />
+      <Stack.Screen name="SendAgain" component={SendAgainScreen} />
+    </Stack.Navigator>
   );
 };
 

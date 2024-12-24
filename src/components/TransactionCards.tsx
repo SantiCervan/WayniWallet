@@ -42,11 +42,11 @@ export default function TransactionCards({
       </View>
       <View>
         <Text
-          className={`font-bold text-base ${
-            isSubtraction ? 'text-red-500' : ''
-          } ${isAddition ? 'text-green-500' : ''}`}>
-          {isSubtraction ? '-' : ''}
-          {isAddition ? '+' : ''}$ {amount.toLocaleString()}
+          className={`font-bold text-base ${isSubtraction && 'text-red-500'} ${
+            isAddition && 'text-green-500'
+          }`}>
+          {isSubtraction && '-'}
+          {isAddition && '+'}$ {amount.toLocaleString()}
         </Text>
       </View>
     </TouchableOpacity>

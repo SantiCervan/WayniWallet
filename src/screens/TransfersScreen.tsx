@@ -122,7 +122,7 @@ const TransfersScreen = () => {
   ];
 
   return (
-    <HeaderContainer action="home" label="Transfers">
+    <HeaderContainer action="Home" label="Transfers" showBackButton>
       <View className="pl-5 pr-11 py-8 flex-row w-full  rounded-t-[3rem] items-center justify-between">
         <Text className="text-xl font-bold">Latest Transfer</Text>
         <Image source={calendar} style={{width: 25, height: 25}} />

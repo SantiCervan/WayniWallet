@@ -4,14 +4,14 @@ import {useNavigation} from '@react-navigation/native';
 import arrowLeft from '../assets/icons/arrowLeft.png';
 
 type NavigationButtonProps = {
-  action: 'back' | 'home';
+  action: 'Back' | 'Home';
 };
 
 const NavigationButton = ({action}: NavigationButtonProps) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    if (action === 'back') {
+    if (action === 'Back') {
       navigation.goBack();
     } else {
       navigation.navigate('Home');
