@@ -2,10 +2,10 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {ReactNode} from 'react';
 import BackButton from './BackButton';
 import {useNavigation} from '@react-navigation/native';
-import person from '../assets/images/person.png';
+import {useUserStore} from '../store/useUserStore';
 
 type HeaderContainerProps = {
-  action: 'Back' | 'Home';
+  action: 'Back' | 'HomeScreen';
   label: string;
   children?: ReactNode;
   showBalance?: boolean;
@@ -21,6 +21,8 @@ export default function HeaderContainer({
   showProfile,
   showBackButton,
 }: HeaderContainerProps) {
+  const user = useUserStore(state => state.user);
+
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -31,16 +33,27 @@ export default function HeaderContainer({
     <View className="bg-[#0FD08B] items-center flex-1">
       <View className={`${showBalance ? 'h-1/4' : 'py-6'} w-full px-3`}>
         {showProfile && (
-          <TouchableOpacity
-            className="flex-row items-center py-4 pl-3 gap-2"
-            onPress={handlePress}>
-            <Image
-              source={person}
-              style={{width: 32, height: 32}}
-              resizeMode="contain"
-            />
-            <Text className="text-white font-bold text-[15px]">Juan Perez</Text>
-          </TouchableOpacity>
+          <>
+            {!user ? (
+              <View className="flex-row items-center py-4 pl-3 gap-4">
+                <View className="w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+                <View className="w-24 h-4 bg-gray-300 rounded animate-pulse" />
+              </View>
+            ) : (
+              <TouchableOpacity
+                className="flex-row items-center py-4 pl-3 gap-2"
+                onPress={handlePress}>
+                <Image
+                  source={{uri: user.picture.medium}}
+                  style={{width: 32, height: 32, borderRadius: 16}}
+                  resizeMode="contain"
+                />
+                <Text className="text-white font-bold text-[15px]">
+                  {`${user.name.first} ${user.name.last}`}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </>
         )}
         {showBackButton && (
           <View

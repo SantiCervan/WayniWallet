@@ -1,47 +1,52 @@
 import React from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
 import HeaderContainer from '../components/HeaderContainer';
-import person from '../assets/images/person.png';
 import ProfileCardInfo from '../components/ProfileCardInfo';
+import {useUserStore} from '../store/useUserStore';
 
 const ProfileScreen = () => {
+  const user = useUserStore(state => state.user);
+
   const profileData = [
     {
       id: 1,
       data: 'City',
-      info: 'New York',
+      info: user?.location.city || '',
     },
     {
       id: 2,
       data: 'State',
-      info: 'NY',
+      info: user?.location.state || '',
     },
     {
       id: 3,
       data: 'Street',
-      info: '5th Avenue 2345',
+      info:
+        `${user?.location.street.name} ${user?.location.street.number}` || '',
     },
     {
       id: 4,
       data: 'Email',
-      info: 'juan.perez@gmail.com',
+      info: user?.email || '',
     },
     {
       id: 5,
       data: 'Phone',
-      info: '+1 (555) 123-4567',
+      info: user?.phone || '',
     },
   ];
 
   return (
-    <HeaderContainer action="Home" label="Profile" showBackButton>
+    <HeaderContainer action="Back" label="Profile" showBackButton>
       <View className="pt-12 w-full items-center">
         <Image
-          source={person}
-          style={{width: 220, height: 220}}
+          source={{uri: user?.picture.large}}
+          style={{width: 220, height: 220, borderRadius: 110}}
           resizeMode="contain"
         />
-        <Text className="text-center pt-4 text-3xl font-bold">Juan Perez</Text>
+        <Text className="text-center pt-4 text-3xl font-bold">
+          {`${user?.name.first} ${user?.name.last}`}
+        </Text>
       </View>
       <ScrollView className="px-5 pt-14">
         {profileData.map(item => (
@@ -50,9 +55,7 @@ const ProfileScreen = () => {
       </ScrollView>
       <View className="flex-row justify-between items-center mb-12 h-28 px-5 ">
         <Text className="text-[#999]">ID</Text>
-        <Text className="text-[#999] text-right">
-          7a0eed16-9430-4d68-901f-c0d4c1c3bf00
-        </Text>
+        <Text className="text-[#999] text-right">{user?.login.uuid}</Text>
       </View>
     </HeaderContainer>
   );

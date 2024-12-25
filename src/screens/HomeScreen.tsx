@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import ScrollSendAgain from '../components/ScrollSendAgain';
 import icon from '../assets/icons/home.png';
 import LatestTransactions from '../components/LatestTransactions';
 import HeaderContainer from '../components/HeaderContainer';
+import {useRandomUser} from '../hooks/useRandomUser';
+import {useUserStore} from '../store/useUserStore';
 
 const HomeScreen = () => {
   const transactions = [
@@ -89,6 +91,16 @@ const HomeScreen = () => {
       isAddition: true,
     },
   ];
+  const {data} = useRandomUser();
+  const setUser = useUserStore(state => state.setUser);
+  const user = useUserStore(state => state.user);
+
+  useEffect(() => {
+    if (data?.results[0] && !user) {
+      console.log('Setting initial user:', data.results[0]);
+      setUser(data.results[0]);
+    }
+  }, [data]);
 
   return (
     <SafeAreaProvider>
