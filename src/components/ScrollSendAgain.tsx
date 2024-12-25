@@ -1,6 +1,7 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 interface ItemsProps {
   id: string | number;
@@ -9,6 +10,8 @@ interface ItemsProps {
 }
 
 export default function ScrollSendAgain() {
+  const navigation = useNavigation();
+
   const items: ItemsProps[] = [
     {id: 1, image: require('../assets/images/person.png'), label: 'person'},
     {id: 2, image: require('../assets/images/person.png'), label: 'person'},
@@ -31,7 +34,8 @@ export default function ScrollSendAgain() {
         {items.map(item => (
           <TouchableOpacity
             key={item.id}
-            className="rounded-xl w-20 h-24 items-center justify-center ">
+            className="rounded-xl w-20 h-24 items-center justify-center "
+            onPress={() => navigation.navigate('SendAgain')}>
             <Image
               source={item.image}
               style={{width: 65, height: 65}}

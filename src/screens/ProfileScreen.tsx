@@ -34,7 +34,7 @@ const ProfileScreen = () => {
   ];
 
   return (
-    <HeaderContainer action="home" label="Profile">
+    <HeaderContainer action="Home" label="Profile" showBackButton>
       <View className="pt-12 w-full items-center">
         <Image
           source={person}
