@@ -10,12 +10,13 @@ interface RouteParams {
     params: {
       selectedUser: User;
       amount: string;
+      notes: string;
     };
   };
 }
 
 export default function SuccessScreen({route}: RouteParams) {
-  const {selectedUser, amount} = route.params;
+  const {selectedUser, amount, notes} = route.params;
   const navigation = useNavigation();
 
   const transactionData = [
@@ -26,7 +27,7 @@ export default function SuccessScreen({route}: RouteParams) {
     },
     {
       id: 2,
-      info: 'For Food',
+      info: notes,
       data: 'Notes',
     },
     {
