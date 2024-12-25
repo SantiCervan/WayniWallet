@@ -5,18 +5,30 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
-import person from '../assets/images/person.png';
 import HeaderContainer from '../components/HeaderContainer';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
+import {User} from '../types/user';
+import {useBalanceStore} from '../store/useBalanceStore';
 
-export default function SendAgainScreen() {
+type RouteParams = {
+  route: {
+    params: {
+      selectedUser: User;
+    };
+  };
+};
+
+export default function SendAgainScreen({route}: RouteParams) {
   const [amount, setAmount] = useState('');
+  const [notes, setNotes] = useState('');
+  const balance = useBalanceStore(state => state.balance);
+  const setBalance = useBalanceStore(state => state.setBalance);
   const inputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
+  const {selectedUser} = route.params;
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,7 +43,15 @@ export default function SendAgainScreen() {
   };
 
   const handlePress = () => {
-    navigation.navigate('SuccessScreen');
+    const numericAmount = Number(amount.replace(/\D/g, ''));
+    if (numericAmount <= balance) {
+      setBalance(balance - numericAmount);
+      navigation.navigate('SuccessScreen', {
+        selectedUser,
+        amount,
+        notes,
+      });
+    }
   };
 
   return (
@@ -42,11 +62,13 @@ export default function SendAgainScreen() {
       showBackButton>
       <View className="pt-5 items-center">
         <Image
-          source={person}
-          style={{width: 65, height: 65}}
+          source={{uri: selectedUser.picture.large}}
+          style={{width: 65, height: 65, borderRadius: 32.5}}
           resizeMode="contain"
         />
-        <Text className="text-center text-sm pt-4">Pablo</Text>
+        <Text className="text-center text-sm pt-4">
+          {selectedUser.name.first} {selectedUser.name.last}
+        </Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           className="w-full pt-6">
@@ -67,6 +89,8 @@ export default function SendAgainScreen() {
           <TextInput
             multiline
             numberOfLines={4}
+            value={notes}
+            onChangeText={setNotes}
             placeholder="For food"
             className="mx-4 mt-6 px-5 bg-[#F7F7F7] rounded-xl text-base border-[1px] border-[#E6E6E6]"
             placeholderTextColor="#999"
@@ -76,8 +100,12 @@ export default function SendAgainScreen() {
       <View className="px-5">
         <CustomButton
           label="Proceed to Transfer"
-          disabled={!amount || Number(amount.replace(/\D/g, '')) <= 0}
-          onPress={() => handlePress()}
+          disabled={
+            !amount ||
+            Number(amount.replace(/\D/g, '')) <= 0 ||
+            Number(amount.replace(/\D/g, '')) > balance
+          }
+          onPress={handlePress}
           bgColor="bg-[#0FD08B]"
           txtColor="text-white"
         />
