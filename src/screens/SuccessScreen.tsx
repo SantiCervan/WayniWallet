@@ -1,18 +1,59 @@
 import {View, Text, Image, ScrollView} from 'react-native';
 import React from 'react';
-import person from '../assets/images/person.png';
 import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
+import {User} from '../types/user';
 
-export default function SuccessScreen() {
+interface RouteParams {
+  route: {
+    params: {
+      selectedUser: User;
+      amount: string;
+    };
+  };
+}
+
+export default function SuccessScreen({route}: RouteParams) {
+  const {selectedUser, amount} = route.params;
   const navigation = useNavigation();
+
+  const transactionData = [
+    {
+      id: 1,
+      info: `$${amount}`,
+      data: 'Payment',
+    },
+    {
+      id: 2,
+      info: 'For Food',
+      data: 'Notes',
+    },
+    {
+      id: 3,
+      info: new Date().toLocaleDateString(),
+      data: 'Date',
+    },
+    {
+      id: 4,
+      info: new Date().toLocaleTimeString(),
+      data: 'Time',
+    },
+    {
+      id: 5,
+      info: selectedUser.login.uuid.slice(0, 8),
+      data: 'Reference Number',
+    },
+  ];
+
   const handlePressShare = () => {
     return;
   };
+
   const handlePressHome = () => {
     navigation.navigate('HomeScreen');
   };
+
   return (
     <View className="bg-[#0FD08B] items-center flex-1 px-5 pt-16">
       <View className="bg-white w-full h-3/4 rounded-3xl px-5 pt-12 pb-9">
@@ -20,41 +61,39 @@ export default function SuccessScreen() {
           Transfer Successful
         </Text>
         <Text className="text-center text-[#999]">
-          Your transaction was successfull
+          Your transaction was successful
         </Text>
         <Text className="text-center text-[#121212] text-4xl font-bold mt-7">
-          $ 1.500
+          $ {amount}
         </Text>
         <Text className="text-center text-lg font-bold mt-10">Send to</Text>
         <View className="flex-row justify-center items-center gap-5 pt-4">
           <Image
-            source={person}
-            style={{width: 48, height: 48}}
+            source={{uri: selectedUser.picture.medium}}
+            style={{width: 48, height: 48, borderRadius: 24}}
             resizeMode="contain"
           />
           <View className="w-20">
-            <Text className="text-left">Gustavo Fuentes</Text>
+            <Text className="text-left">{`${selectedUser.name.first} ${selectedUser.name.last}`}</Text>
           </View>
         </View>
         <ScrollView className="px-5 pt-14">
-          <ProfileCardInfo key={1} info="Payment" data="$1.500" />
-          <ProfileCardInfo key={2} info="Notes" data="For Food" />
-          <ProfileCardInfo key={3} info="Date" data="December 12, 2024" />
-          <ProfileCardInfo key={4} info="Time" data="20:32" />
-          <ProfileCardInfo key={5} info="Reference Number" data="#999999" />
+          {transactionData.map(item => (
+            <ProfileCardInfo key={item.id} info={item.info} data={item.data} />
+          ))}
         </ScrollView>
       </View>
       <View className="pt-3">
         <CustomButton
           label="Share"
-          onPress={() => handlePressShare()}
+          onPress={handlePressShare}
           bgColor="bg-[#0FD08B]"
           txtColor="text-white"
           borderColor="border-[1px] border-white"
         />
         <CustomButton
           label="Back to Home"
-          onPress={() => handlePressHome()}
+          onPress={handlePressHome}
           bgColor="bg-white"
           txtColor="text-[#0FD08B]"
         />

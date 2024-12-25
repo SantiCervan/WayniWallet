@@ -5,15 +5,23 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
-import person from '../assets/images/person.png';
 import HeaderContainer from '../components/HeaderContainer';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
+import {User} from '../types/user';
 
-export default function SendAgainScreen() {
+type RouteParams = {
+  route: {
+    params: {
+      selectedUser: User;
+    };
+  };
+};
+
+export default function SendAgainScreen({route}: RouteParams) {
+  const {selectedUser} = route.params;
   const [amount, setAmount] = useState('');
   const inputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
@@ -31,7 +39,10 @@ export default function SendAgainScreen() {
   };
 
   const handlePress = () => {
-    navigation.navigate('SuccessScreen');
+    navigation.navigate('SuccessScreen', {
+      selectedUser,
+      amount,
+    });
   };
 
   return (
@@ -42,11 +53,13 @@ export default function SendAgainScreen() {
       showBackButton>
       <View className="pt-5 items-center">
         <Image
-          source={person}
-          style={{width: 65, height: 65}}
+          source={{uri: selectedUser.picture.large}}
+          style={{width: 65, height: 65, borderRadius: 32.5}}
           resizeMode="contain"
         />
-        <Text className="text-center text-sm pt-4">Pablo</Text>
+        <Text className="text-center text-sm pt-4">
+          {selectedUser.name.first} {selectedUser.name.last}
+        </Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           className="w-full pt-6">

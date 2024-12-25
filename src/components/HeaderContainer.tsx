@@ -3,6 +3,7 @@ import React, {ReactNode} from 'react';
 import BackButton from './BackButton';
 import {useNavigation} from '@react-navigation/native';
 import {useUserStore} from '../store/useUserStore';
+import {useBalanceStore} from '../store/useBalanceStore';
 
 type HeaderContainerProps = {
   action: 'Back' | 'HomeScreen';
@@ -22,7 +23,7 @@ export default function HeaderContainer({
   showBackButton,
 }: HeaderContainerProps) {
   const user = useUserStore(state => state.user);
-
+  const balance = useBalanceStore(state => state.balance);
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -75,7 +76,7 @@ export default function HeaderContainer({
               Your Balance
             </Text>
             <Text className="text-white text-center font-bold text-[32px]">
-              $ 2.800
+              $ {balance.toLocaleString()}
             </Text>
           </View>
         )}
