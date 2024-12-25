@@ -6,6 +6,7 @@ import TransfersScreen from '../screens/TransfersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SendAgainScreen from '../screens/SendAgainScreen';
+import SuccessScreen from '../screens/SuccessScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -61,8 +62,9 @@ const TabNavigator = () => {
 const Tabs = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MainTabs" component={TabNavigator} />
+      <Stack.Screen name="HomeScreen" component={TabNavigator} />
       <Stack.Screen name="SendAgain" component={SendAgainScreen} />
+      <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
     </Stack.Navigator>
   );
 };

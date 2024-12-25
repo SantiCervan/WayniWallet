@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import arrowLeft from '../assets/icons/arrowLeft.png';
 
 type NavigationButtonProps = {
-  action: 'Back' | 'Home';
+  action: 'Back' | 'HomeScreen';
 };
 
 const NavigationButton = ({action}: NavigationButtonProps) => {

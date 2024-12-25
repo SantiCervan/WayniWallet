@@ -10,10 +10,13 @@ import {
 import React, {useRef, useEffect, useState} from 'react';
 import person from '../assets/images/person.png';
 import HeaderContainer from '../components/HeaderContainer';
+import {useNavigation} from '@react-navigation/native';
+import CustomButton from '../components/CustomButton';
 
 export default function SendAgainScreen() {
   const [amount, setAmount] = useState('');
   const inputRef = useRef<TextInput>(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,6 +28,10 @@ export default function SendAgainScreen() {
     const numericValue = value.replace(/\D/g, '');
     const formatted = Number(numericValue).toLocaleString('es-ES');
     setAmount(formatted);
+  };
+
+  const handlePress = () => {
+    navigation.navigate('SuccessScreen');
   };
 
   return (
@@ -66,18 +73,15 @@ export default function SendAgainScreen() {
           />
         </KeyboardAvoidingView>
       </View>
-      <TouchableOpacity
-        disabled={!amount || Number(amount.replace(/\D/g, '')) <= 0}
-        onPress={() => console.log('Submit')}
-        className={`mx-4 p-4 mt-4 rounded-full ${
-          !amount || Number(amount.replace(/\D/g, '')) <= 0
-            ? 'bg-gray-300'
-            : 'bg-[#0FD08B]'
-        }`}>
-        <Text className="text-white text-center text-lg font-bold">
-          Proceed to Transfer
-        </Text>
-      </TouchableOpacity>
+      <View className="px-5">
+        <CustomButton
+          label="Proceed to Transfer"
+          disabled={!amount || Number(amount.replace(/\D/g, '')) <= 0}
+          onPress={() => handlePress()}
+          bgColor="bg-[#0FD08B]"
+          txtColor="text-white"
+        />
+      </View>
     </HeaderContainer>
   );
 }
