@@ -18,7 +18,7 @@ export const useRandomUser = () => {
       const data = await response.json();
       return data;
     },
-    staleTime: Infinity, // Prevents automatic refetching
-    gcTime: Infinity, // Keeps the data cached
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };

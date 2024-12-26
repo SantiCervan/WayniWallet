@@ -16,7 +16,7 @@ const NavigationButton = ({action}: NavigationButtonProps) => {
     if (action === 'Back') {
       navigation.goBack();
     } else {
-      navigation.navigate(Routes.Home);
+      navigation.navigate(Routes.HOME);
     }
   };
 
