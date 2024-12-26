@@ -41,7 +41,10 @@ export default function ScrollSendAgain() {
                   style={styles.Image}
                   resizeMode="contain"
                 />
-                <Text className="text-gray-600 text-center text-base">
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  className="text-gray-600 text-center text-base">
                   {user.name.first}
                 </Text>
               </TouchableOpacity>
