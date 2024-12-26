@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import TransfersScreen from '../screens/TransfersScreen';
@@ -38,7 +38,7 @@ const TabNavigator = () => {
           return (
             <Image
               source={iconSource}
-              style={{width: 32, height: 32}}
+              style={styles.Image}
               resizeMode="contain"
             />
           );
@@ -65,3 +65,5 @@ const StackNavigator = () => {
 };
 
 export default StackNavigator;
+
+const styles = StyleSheet.create({Image: {width: 32, height: 32}});

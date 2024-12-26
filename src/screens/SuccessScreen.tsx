@@ -1,4 +1,4 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
@@ -68,7 +68,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
         <View className="flex-row justify-center items-center gap-5 pt-4">
           <Image
             source={{uri: selectedUser.picture.medium}}
-            style={{width: 48, height: 48, borderRadius: 24}}
+            style={styles.Image}
             resizeMode="contain"
           />
           <View className="w-20">
@@ -101,3 +101,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
 };
 
 export default SuccessScreen;
+
+const styles = StyleSheet.create({
+  Image: {width: 48, height: 48, borderRadius: 24},
+});

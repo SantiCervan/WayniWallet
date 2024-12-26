@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import HeaderContainer from '../components/HeaderContainer';
 import ProfileCardInfo from '../components/ProfileCardInfo';
 import {useUserStore} from '../store/useUserStore';
@@ -41,7 +41,7 @@ const ProfileScreen = () => {
       <View className="pt-12 w-full items-center">
         <Image
           source={{uri: user?.picture.large}}
-          style={{width: 220, height: 220, borderRadius: 110}}
+          style={styles.Image}
           resizeMode="contain"
         />
         <Text className="text-center pt-4 text-3xl font-bold">
@@ -62,3 +62,7 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
+
+const styles = StyleSheet.create({
+  Image: {width: 220, height: 220, borderRadius: 110},
+});

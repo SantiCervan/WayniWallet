@@ -5,6 +5,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
 import HeaderContainer from '../components/HeaderContainer';
@@ -88,7 +89,7 @@ const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
       <View className="pt-5 items-center">
         <Image
           source={{uri: selectedUser.picture.large}}
-          style={{width: 65, height: 65, borderRadius: 32.5}}
+          style={styles.Image}
           resizeMode="contain"
         />
         <Text className="text-center text-sm pt-4">
@@ -149,3 +150,7 @@ const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
 };
 
 export default SendAgainScreen;
+
+const styles = StyleSheet.create({
+  Image: {width: 65, height: 65, borderRadius: 32.5},
+});

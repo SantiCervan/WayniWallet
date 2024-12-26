@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React, {ReactNode} from 'react';
 import BackButton from './BackButton';
 import {useNavigation} from '@react-navigation/native';
@@ -48,7 +48,7 @@ export default function HeaderContainer({
                 onPress={handlePress}>
                 <Image
                   source={{uri: user.picture.medium}}
-                  style={{width: 32, height: 32, borderRadius: 16}}
+                  style={styles.Image}
                   resizeMode="contain"
                 />
                 <Text className="text-white font-bold text-[15px]">
@@ -89,3 +89,7 @@ export default function HeaderContainer({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  Image: {width: 32, height: 32, borderRadius: 16},
+});

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import HeaderContainer from '../components/HeaderContainer';
 import calendar from '../assets/icons/calendar.png';
 import LatestTransactions from '../components/LatestTransactions';
@@ -12,7 +12,7 @@ const TransfersScreen = () => {
     <HeaderContainer action="Back" label="Transfers" showBackButton>
       <View className="pl-5 pr-11 py-8 flex-row w-full rounded-t-[3rem] items-center justify-between">
         <Text className="text-xl font-bold">Latest Transfer</Text>
-        <Image source={calendar} style={{width: 25, height: 25}} />
+        <Image source={calendar} style={styles.Image} />
       </View>
       <LatestTransactions data={transactions} />
     </HeaderContainer>
@@ -20,3 +20,5 @@ const TransfersScreen = () => {
 };
 
 export default TransfersScreen;
+
+const styles = StyleSheet.create({Image: {width: 25, height: 25}});

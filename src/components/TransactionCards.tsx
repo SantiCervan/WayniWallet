@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import transactionIcon from '../assets/icons/transactions.png';
 import {useRoute} from '@react-navigation/native';
@@ -32,14 +32,14 @@ export default function TransactionCards({
         {picture && route.name === 'Transfers' ? (
           <Image
             source={{uri: picture.medium}}
-            style={{width: 50, height: 50}}
+            style={styles.Image1}
             resizeMode="contain"
             className="rounded-full"
           />
         ) : (
           <Image
             source={icon || transactionIcon}
-            style={{width: 28, height: 28}}
+            style={styles.Image2}
             resizeMode="contain"
           />
         )}
@@ -62,3 +62,8 @@ export default function TransactionCards({
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  Image1: {width: 50, height: 50},
+  Image2: {width: 28, height: 28},
+});

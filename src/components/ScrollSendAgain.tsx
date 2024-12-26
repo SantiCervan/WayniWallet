@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
@@ -20,7 +20,7 @@ export default function ScrollSendAgain() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{gap: 12}}
+        contentContainerStyle={styles.contentContainerStyle}
         className="pt-4">
         {!data?.results
           ? [...Array(6)].map((_, index) => (
@@ -38,7 +38,7 @@ export default function ScrollSendAgain() {
                 onPress={() => handleUserPress(user)}>
                 <Image
                   source={{uri: user.picture.medium}}
-                  style={{width: 65, height: 65, borderRadius: 32.5}}
+                  style={styles.Image}
                   resizeMode="contain"
                 />
                 <Text className="text-gray-600 text-center text-base">
@@ -50,3 +50,8 @@ export default function ScrollSendAgain() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {gap: 12},
+  Image: {width: 65, height: 65, borderRadius: 32.5},
+});
