@@ -13,7 +13,7 @@ import CustomButton from '../components/CustomButton';
 import {useBalanceStore} from '../store/useBalanceStore';
 import {useTransactionsStore} from '../store/useTransactionsStore';
 import {Routes} from '../utils/constants';
-import {RoutesParamsList} from '../types/routes';
+import {NavigationProp, RoutesParamsList} from '../types/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type SendAgainProps = NativeStackScreenProps<
@@ -29,7 +29,7 @@ const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
   const setBalance = useBalanceStore(state => state.setBalance);
   const addTransaction = useTransactionsStore(state => state.addTransaction);
   const inputRef = useRef<TextInput>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const {selectedUser} = route.params;
 
   useEffect(() => {

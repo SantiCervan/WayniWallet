@@ -4,7 +4,7 @@ import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../utils/constants';
-import {RoutesParamsList} from '../types/routes';
+import {NavigationProp, RoutesParamsList} from '../types/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type SuccessScreenProps = NativeStackScreenProps<
@@ -14,7 +14,7 @@ type SuccessScreenProps = NativeStackScreenProps<
 
 const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
   const {selectedUser, amount, notes} = route.params;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const transactionData = [
     {

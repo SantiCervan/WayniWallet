@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator<RoutesParamsList>();
 
 const TabNavigator = () => {
   const iconMap: Record<string, any> = {
-    [Routes.HOME]: require('../assets/icons/transactions.png'),
+    [Routes.Home]: require('../assets/icons/transactions.png'),
     [Routes.TRANSFERS]: require('../assets/icons/transfers.png'),
     [Routes.PROFILE]: require('../assets/icons/profile.png'),
   };
@@ -24,7 +24,7 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarStyle: {
-          display: route.name === Routes.HOME ? 'flex' : 'none',
+          display: route.name === Routes.Home ? 'flex' : 'none',
           paddingHorizontal: 20,
           paddingTop: 9,
           height: 75,
@@ -47,7 +47,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: 'purple',
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name={Routes.HOME} component={HomeScreen} />
+      <Tab.Screen name={Routes.Home} component={HomeScreen} />
       <Tab.Screen name={Routes.TRANSFERS} component={TransfersScreen} />
       <Tab.Screen name={Routes.PROFILE} component={ProfileScreen} />
     </Tab.Navigator>

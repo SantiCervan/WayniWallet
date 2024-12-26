@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useUserStore} from '../store/useUserStore';
 import {useBalanceStore} from '../store/useBalanceStore';
 import {Routes} from '../utils/constants';
+import {NavigationProp} from '../types/routes';
 
 type HeaderContainerProps = {
   action: 'Back' | 'HomeScreen';
@@ -25,7 +26,7 @@ export default function HeaderContainer({
 }: HeaderContainerProps) {
   const user = useUserStore(state => state.user);
   const balance = useBalanceStore(state => state.balance);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const handlePress = () => {
     navigation.navigate(Routes.PROFILE);

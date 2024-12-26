@@ -1,3 +1,4 @@
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '../utils/constants';
 import {User} from './user';
 
@@ -20,3 +21,5 @@ export type RoutesParamsList = {
     notes: string;
   };
 };
+
+export type NavigationProp = NativeStackNavigationProp<any, Routes>;
