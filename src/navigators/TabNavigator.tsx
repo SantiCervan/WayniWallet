@@ -14,11 +14,17 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RoutesParamsList>();
 
 const TabNavigator = () => {
+  const iconMap: Record<string, any> = {
+    [Routes.HOME]: require('../assets/icons/transactions.png'),
+    [Routes.TRANSFERS]: require('../assets/icons/transfers.png'),
+    [Routes.PROFILE]: require('../assets/icons/profile.png'),
+  };
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarStyle: {
-          display: route.name === 'Home' ? 'flex' : 'none',
+          display: route.name === Routes.HOME ? 'flex' : 'none',
           paddingHorizontal: 20,
           paddingTop: 9,
           height: 75,
@@ -28,19 +34,7 @@ const TabNavigator = () => {
           fontSize: 14,
         },
         tabBarIcon: () => {
-          let iconSource;
-          switch (route.name) {
-            case 'Home':
-              iconSource = require('../assets/icons/transactions.png');
-              break;
-            case 'Transfers':
-              iconSource = require('../assets/icons/transfers.png');
-              break;
-            case 'Profile':
-              iconSource = require('../assets/icons/profile.png');
-              break;
-          }
-
+          const iconSource = iconMap[route.name];
           return (
             <Image
               source={iconSource}
