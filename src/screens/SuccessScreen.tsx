@@ -3,20 +3,16 @@ import React from 'react';
 import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-import {User} from '../types/user';
 import {Routes} from '../utils/constants';
+import {RoutesParamsList} from '../types/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-interface RouteParams {
-  route: {
-    params: {
-      selectedUser: User;
-      amount: string;
-      notes: string;
-    };
-  };
-}
+type SuccessScreenProps = NativeStackScreenProps<
+  RoutesParamsList,
+  Routes.SUCCESS_SCREEN
+>;
 
-export default function SuccessScreen({route}: RouteParams) {
+const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
   const {selectedUser, amount, notes} = route.params;
   const navigation = useNavigation();
 
@@ -102,4 +98,6 @@ export default function SuccessScreen({route}: RouteParams) {
       </View>
     </View>
   );
-}
+};
+
+export default SuccessScreen;

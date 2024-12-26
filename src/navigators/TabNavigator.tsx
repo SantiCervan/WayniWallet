@@ -8,9 +8,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SendAgainScreen from '../screens/SendAgainScreen';
 import SuccessScreen from '../screens/SuccessScreen';
 import {Routes} from '../utils/constants';
+import {RoutesParamsList} from '../types/routes';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RoutesParamsList>();
 
 const TabNavigator = () => {
   return (
@@ -28,7 +29,6 @@ const TabNavigator = () => {
         },
         tabBarIcon: () => {
           let iconSource;
-
           switch (route.name) {
             case 'Home':
               iconSource = require('../assets/icons/transactions.png');
@@ -60,7 +60,7 @@ const TabNavigator = () => {
   );
 };
 
-const Tabs = () => {
+const StackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.HOME_SCREEN} component={TabNavigator} />
@@ -70,4 +70,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default StackNavigator;

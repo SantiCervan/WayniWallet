@@ -10,20 +10,18 @@ import React, {useRef, useEffect, useState} from 'react';
 import HeaderContainer from '../components/HeaderContainer';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
-import {User} from '../types/user';
 import {useBalanceStore} from '../store/useBalanceStore';
 import {useTransactionsStore} from '../store/useTransactionsStore';
 import {Routes} from '../utils/constants';
+import {RoutesParamsList} from '../types/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type RouteParams = {
-  route: {
-    params: {
-      selectedUser: User;
-    };
-  };
-};
+type SendAgainProps = NativeStackScreenProps<
+  RoutesParamsList,
+  Routes.SEND_AGAIN
+>;
 
-export default function SendAgainScreen({route}: RouteParams) {
+const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -148,4 +146,6 @@ export default function SendAgainScreen({route}: RouteParams) {
       </View>
     </HeaderContainer>
   );
-}
+};
+
+export default SendAgainScreen;
