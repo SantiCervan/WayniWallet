@@ -53,7 +53,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
   };
 
   return (
-    <View className="bg-[#0FD08B] items-center flex-1 px-5 pt-16">
+    <View className="bg-disabledButton items-center flex-1 px-5 pt-16">
       <View className="bg-white w-full h-3/4 rounded-3xl px-5 pt-12 pb-9">
         <Text className="text-center text-lg font-bold text-[#03B961]">
           Transfer Successful
@@ -85,7 +85,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
         <CustomButton
           label="Share"
           onPress={handlePressShare}
-          bgColor="bg-[#0FD08B]"
+          bgColor="bg-disabledButton"
           txtColor="text-white"
           borderColor="border-[1px] border-white"
         />
@@ -93,7 +93,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
           label="Back to Home"
           onPress={handlePressHome}
           bgColor="bg-white"
-          txtColor="text-[#0FD08B]"
+          txtColor="text-disabledButton"
         />
       </View>
     </View>

@@ -33,7 +33,7 @@ export default function HeaderContainer({
   };
 
   return (
-    <View className="bg-[#0FD08B] items-center flex-1">
+    <View className="bg-primaryGreen items-center flex-1">
       <View className={`${showBalance ? 'h-1/4' : 'py-6'} w-full px-3`}>
         {showProfile && (
           <>

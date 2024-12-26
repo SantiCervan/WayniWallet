@@ -117,7 +117,7 @@ const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
             value={notes}
             onChangeText={setNotes}
             placeholder="For food"
-            className="mx-4 mt-6 px-5 bg-[#F7F7F7] rounded-xl text-base border-[1px] border-[#E6E6E6]"
+            className="mx-4 mt-6 px-5 bg-notesGray rounded-xl text-base border-[1px] border-[#E6E6E6]"
             placeholderTextColor="#999"
           />
         </KeyboardAvoidingView>
@@ -135,7 +135,7 @@ const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
             Number(amount.replace(/\D/g, '')) > balance
           }
           onPress={handlePress}
-          bgColor="bg-[#0FD08B]"
+          bgColor="bg-disabledButton"
           txtColor={
             Number(amount.replace(/\D/g, '')) > balance
               ? 'text-red-500'

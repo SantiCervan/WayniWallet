@@ -28,7 +28,7 @@ export default function TransactionCards({
   const route = useRoute();
   return (
     <TouchableOpacity className="h-20 flex-row items-center justify-between pr-3">
-      <View className="bg-[#F9F5FE] h-14 w-14 rounded-full items-center justify-center">
+      <View className="bg-backgroundGray h-14 w-14 rounded-full items-center justify-center">
         {picture && route.name === 'Transfers' ? (
           <Image
             source={{uri: picture.medium}}
