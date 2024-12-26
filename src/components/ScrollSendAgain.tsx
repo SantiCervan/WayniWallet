@@ -1,15 +1,17 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {useRandomContacts} from '../utils/hooks/useRandomContacts';
 import {Routes} from '../utils/constants';
+import {NavigationProp} from '../types/routes';
+import {User} from '../types/user';
 
 export default function ScrollSendAgain() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const {data} = useRandomContacts(10);
 
-  const handleUserPress = user => {
+  const handleUserPress = (user: User) => {
     navigation.navigate(Routes.SEND_AGAIN, {selectedUser: user});
   };
 
@@ -18,7 +20,7 @@ export default function ScrollSendAgain() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{gap: 12}}
+        contentContainerStyle={styles.contentContainerStyle}
         className="pt-4">
         {!data?.results
           ? [...Array(6)].map((_, index) => (
@@ -29,14 +31,14 @@ export default function ScrollSendAgain() {
                 <View className="w-12 h-4 mt-2 bg-gray-300 rounded animate-pulse" />
               </View>
             ))
-          : data.results.map(user => (
+          : data?.results?.map((user: User) => (
               <TouchableOpacity
                 key={user.login.uuid}
                 className="rounded-xl w-20 h-24 items-center justify-center"
                 onPress={() => handleUserPress(user)}>
                 <Image
                   source={{uri: user.picture.medium}}
-                  style={{width: 65, height: 65, borderRadius: 32.5}}
+                  style={styles.Image}
                   resizeMode="contain"
                 />
                 <Text className="text-gray-600 text-center text-base">
@@ -48,3 +50,8 @@ export default function ScrollSendAgain() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {gap: 12},
+  Image: {width: 65, height: 65, borderRadius: 32.5},
+});

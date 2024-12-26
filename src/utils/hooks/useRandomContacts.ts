@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {RandomUserResponse} from '../types/user';
+import {RandomUserResponse} from '../../types/user';
 
 export const useRandomContacts = (count: number = 10) => {
   return useQuery<RandomUserResponse>({

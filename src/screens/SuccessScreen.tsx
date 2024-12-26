@@ -1,24 +1,20 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-import {User} from '../types/user';
 import {Routes} from '../utils/constants';
+import {NavigationProp, RoutesParamsList} from '../types/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-interface RouteParams {
-  route: {
-    params: {
-      selectedUser: User;
-      amount: string;
-      notes: string;
-    };
-  };
-}
+type SuccessScreenProps = NativeStackScreenProps<
+  RoutesParamsList,
+  Routes.SUCCESS_SCREEN
+>;
 
-export default function SuccessScreen({route}: RouteParams) {
+const SuccessScreen: React.FC<SuccessScreenProps> = ({route}) => {
   const {selectedUser, amount, notes} = route.params;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const transactionData = [
     {
@@ -57,7 +53,7 @@ export default function SuccessScreen({route}: RouteParams) {
   };
 
   return (
-    <View className="bg-[#0FD08B] items-center flex-1 px-5 pt-16">
+    <View className="bg-disabledButton items-center flex-1 px-5 pt-16">
       <View className="bg-white w-full h-3/4 rounded-3xl px-5 pt-12 pb-9">
         <Text className="text-center text-lg font-bold text-[#03B961]">
           Transfer Successful
@@ -72,7 +68,7 @@ export default function SuccessScreen({route}: RouteParams) {
         <View className="flex-row justify-center items-center gap-5 pt-4">
           <Image
             source={{uri: selectedUser.picture.medium}}
-            style={{width: 48, height: 48, borderRadius: 24}}
+            style={styles.Image}
             resizeMode="contain"
           />
           <View className="w-20">
@@ -89,7 +85,7 @@ export default function SuccessScreen({route}: RouteParams) {
         <CustomButton
           label="Share"
           onPress={handlePressShare}
-          bgColor="bg-[#0FD08B]"
+          bgColor="bg-disabledButton"
           txtColor="text-white"
           borderColor="border-[1px] border-white"
         />
@@ -97,9 +93,15 @@ export default function SuccessScreen({route}: RouteParams) {
           label="Back to Home"
           onPress={handlePressHome}
           bgColor="bg-white"
-          txtColor="text-[#0FD08B]"
+          txtColor="text-disabledButton"
         />
       </View>
     </View>
   );
-}
+};
+
+export default SuccessScreen;
+
+const styles = StyleSheet.create({
+  Image: {width: 48, height: 48, borderRadius: 24},
+});

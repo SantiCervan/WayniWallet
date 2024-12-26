@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import TransfersScreen from '../screens/TransfersScreen';
@@ -8,16 +8,23 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SendAgainScreen from '../screens/SendAgainScreen';
 import SuccessScreen from '../screens/SuccessScreen';
 import {Routes} from '../utils/constants';
+import {RoutesParamsList} from '../types/routes';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RoutesParamsList>();
 
 const TabNavigator = () => {
+  const iconMap: Record<string, any> = {
+    [Routes.HOME]: require('../assets/icons/transactions.png'),
+    [Routes.TRANSFERS]: require('../assets/icons/transfers.png'),
+    [Routes.PROFILE]: require('../assets/icons/profile.png'),
+  };
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarStyle: {
-          display: route.name === 'Home' ? 'flex' : 'none',
+          display: route.name === Routes.HOME ? 'flex' : 'none',
           paddingHorizontal: 20,
           paddingTop: 9,
           height: 75,
@@ -27,24 +34,11 @@ const TabNavigator = () => {
           fontSize: 14,
         },
         tabBarIcon: () => {
-          let iconSource;
-
-          switch (route.name) {
-            case 'Home':
-              iconSource = require('../assets/icons/transactions.png');
-              break;
-            case 'Transfers':
-              iconSource = require('../assets/icons/transfers.png');
-              break;
-            case 'Profile':
-              iconSource = require('../assets/icons/profile.png');
-              break;
-          }
-
+          const iconSource = iconMap[route.name];
           return (
             <Image
               source={iconSource}
-              style={{width: 32, height: 32}}
+              style={styles.Image}
               resizeMode="contain"
             />
           );
@@ -60,7 +54,7 @@ const TabNavigator = () => {
   );
 };
 
-const Tabs = () => {
+const StackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.HOME_SCREEN} component={TabNavigator} />
@@ -70,4 +64,6 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default StackNavigator;
+
+const styles = StyleSheet.create({Image: {width: 32, height: 32}});

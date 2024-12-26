@@ -5,25 +5,24 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
 import HeaderContainer from '../components/HeaderContainer';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
-import {User} from '../types/user';
 import {useBalanceStore} from '../store/useBalanceStore';
 import {useTransactionsStore} from '../store/useTransactionsStore';
 import {Routes} from '../utils/constants';
+import {NavigationProp, RoutesParamsList} from '../types/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type RouteParams = {
-  route: {
-    params: {
-      selectedUser: User;
-    };
-  };
-};
+type SendAgainProps = NativeStackScreenProps<
+  RoutesParamsList,
+  Routes.SEND_AGAIN
+>;
 
-export default function SendAgainScreen({route}: RouteParams) {
+const SendAgainScreen: React.FC<SendAgainProps> = ({route}) => {
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +30,7 @@ export default function SendAgainScreen({route}: RouteParams) {
   const setBalance = useBalanceStore(state => state.setBalance);
   const addTransaction = useTransactionsStore(state => state.addTransaction);
   const inputRef = useRef<TextInput>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const {selectedUser} = route.params;
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export default function SendAgainScreen({route}: RouteParams) {
       <View className="pt-5 items-center">
         <Image
           source={{uri: selectedUser.picture.large}}
-          style={{width: 65, height: 65, borderRadius: 32.5}}
+          style={styles.Image}
           resizeMode="contain"
         />
         <Text className="text-center text-sm pt-4">
@@ -119,7 +118,7 @@ export default function SendAgainScreen({route}: RouteParams) {
             value={notes}
             onChangeText={setNotes}
             placeholder="For food"
-            className="mx-4 mt-6 px-5 bg-[#F7F7F7] rounded-xl text-base border-[1px] border-[#E6E6E6]"
+            className="mx-4 mt-6 px-5 bg-notesGray rounded-xl text-base border-[1px] border-[#E6E6E6]"
             placeholderTextColor="#999"
           />
         </KeyboardAvoidingView>
@@ -137,7 +136,7 @@ export default function SendAgainScreen({route}: RouteParams) {
             Number(amount.replace(/\D/g, '')) > balance
           }
           onPress={handlePress}
-          bgColor="bg-[#0FD08B]"
+          bgColor="bg-disabledButton"
           txtColor={
             Number(amount.replace(/\D/g, '')) > balance
               ? 'text-red-500'
@@ -148,4 +147,10 @@ export default function SendAgainScreen({route}: RouteParams) {
       </View>
     </HeaderContainer>
   );
-}
+};
+
+export default SendAgainScreen;
+
+const styles = StyleSheet.create({
+  Image: {width: 65, height: 65, borderRadius: 32.5},
+});

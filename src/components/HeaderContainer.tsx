@@ -1,10 +1,11 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React, {ReactNode} from 'react';
 import BackButton from './BackButton';
 import {useNavigation} from '@react-navigation/native';
 import {useUserStore} from '../store/useUserStore';
 import {useBalanceStore} from '../store/useBalanceStore';
 import {Routes} from '../utils/constants';
+import {NavigationProp} from '../types/routes';
 
 type HeaderContainerProps = {
   action: 'Back' | 'HomeScreen';
@@ -25,14 +26,14 @@ export default function HeaderContainer({
 }: HeaderContainerProps) {
   const user = useUserStore(state => state.user);
   const balance = useBalanceStore(state => state.balance);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const handlePress = () => {
     navigation.navigate(Routes.PROFILE);
   };
 
   return (
-    <View className="bg-[#0FD08B] items-center flex-1">
+    <View className="bg-primaryGreen items-center flex-1">
       <View className={`${showBalance ? 'h-1/4' : 'py-6'} w-full px-3`}>
         {showProfile && (
           <>
@@ -47,7 +48,7 @@ export default function HeaderContainer({
                 onPress={handlePress}>
                 <Image
                   source={{uri: user.picture.medium}}
-                  style={{width: 32, height: 32, borderRadius: 16}}
+                  style={styles.Image}
                   resizeMode="contain"
                 />
                 <Text className="text-white font-bold text-[15px]">
@@ -88,3 +89,7 @@ export default function HeaderContainer({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  Image: {width: 32, height: 32, borderRadius: 16},
+});
