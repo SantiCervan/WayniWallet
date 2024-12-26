@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import ScrollSendAgain from '../components/ScrollSendAgain';
 import LatestTransactions from '../components/LatestTransactions';
 import HeaderContainer from '../components/HeaderContainer';
-import {useRandomUser} from '../hooks/useRandomUser';
+import {useRandomUser} from '../utils/hooks/useRandomUser';
 import {useUserStore} from '../store/useUserStore';
 import {useTransactionsStore} from '../store/useTransactionsStore';
 

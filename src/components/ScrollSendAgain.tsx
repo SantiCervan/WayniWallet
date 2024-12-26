@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import {useRandomContacts} from '../hooks/useRandomContacts';
+import {useRandomContacts} from '../utils/hooks/useRandomContacts';
 import {Routes} from '../utils/constants';
 
 export default function ScrollSendAgain() {
