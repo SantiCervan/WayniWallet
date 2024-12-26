@@ -1,33 +1,60 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import {useRandomContacts} from '../utils/hooks/useRandomContacts';
+import {Routes} from '../utils/constants';
+import {NavigationProp} from '../types/routes';
+import {User} from '../types/user';
 
 export default function ScrollSendAgain() {
-  const items = [
-    {id: 1, title: 'Item 1', amount: '$100'},
-    {id: 2, title: 'Item 2', amount: '$200'},
-    {id: 3, title: 'Item 3', amount: '$300'},
-    {id: 4, title: 'Item 4', amount: '$400'},
-    {id: 5, title: 'Item 5', amount: '$500'},
-  ];
+  const navigation = useNavigation<NavigationProp>();
+  const {data} = useRandomContacts(10);
+
+  const handleUserPress = (user: User) => {
+    navigation.navigate(Routes.SEND_AGAIN, {selectedUser: user});
+  };
 
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      className="px-4">
-      {items.map(item => (
-        <TouchableOpacity
-          key={item.id}
-          className="bg-white mr-4 rounded-xl p-4 shadow-sm w-40">
-          <View className="space-y-2">
-            <Text className="text-purple-600 font-bold text-lg">
-              {item.title}
-            </Text>
-            <Text className="text-gray-600 text-base">{item.amount}</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <View className="h-32">
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainerStyle}
+        className="pt-4">
+        {!data?.results
+          ? [...Array(6)].map((_, index) => (
+              <View
+                key={index}
+                className="rounded-xl w-20 h-24 items-center justify-center">
+                <View className="w-[65px] h-[65px] rounded-full bg-gray-300 animate-pulse" />
+                <View className="w-12 h-4 mt-2 bg-gray-300 rounded animate-pulse" />
+              </View>
+            ))
+          : data?.results?.map((user: User) => (
+              <TouchableOpacity
+                key={user.login.uuid}
+                className="rounded-xl w-20 h-24 items-center justify-center"
+                onPress={() => handleUserPress(user)}>
+                <Image
+                  source={{uri: user.picture.medium}}
+                  style={styles.Image}
+                  resizeMode="contain"
+                />
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  className="text-gray-600 text-center text-base">
+                  {user.name.first}
+                </Text>
+              </TouchableOpacity>
+            ))}
+      </ScrollView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {gap: 12},
+  Image: {width: 65, height: 65, borderRadius: 32.5},
+});
