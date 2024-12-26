@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import arrowLeft from '../assets/icons/arrowLeft.png';
+import {Routes} from '../utils/constants';
 
 type NavigationButtonProps = {
   action: 'Back' | 'HomeScreen';
@@ -14,7 +15,7 @@ const NavigationButton = ({action}: NavigationButtonProps) => {
     if (action === 'Back') {
       navigation.goBack();
     } else {
-      navigation.navigate('Home');
+      navigation.navigate(Routes.HOME);
     }
   };
 

@@ -3,13 +3,14 @@ import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {useRandomContacts} from '../hooks/useRandomContacts';
+import {Routes} from '../utils/constants';
 
 export default function ScrollSendAgain() {
   const navigation = useNavigation();
   const {data} = useRandomContacts(10);
 
   const handleUserPress = user => {
-    navigation.navigate('SendAgain', {selectedUser: user});
+    navigation.navigate(Routes.SEND_AGAIN, {selectedUser: user});
   };
 
   return (

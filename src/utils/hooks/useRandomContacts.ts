@@ -9,7 +9,6 @@ export const useRandomContacts = (count: number = 10) => {
         `https://randomuser.me/api/?results=${count}`,
       );
       const data = await response.json();
-      console.log('Contacts API Response:', data);
       return data;
     },
     staleTime: Infinity,

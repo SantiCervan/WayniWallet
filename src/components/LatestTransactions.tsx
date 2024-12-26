@@ -1,37 +1,38 @@
-import {View, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import React from 'react';
 import TransactionCards from './TransactionCards';
-
-interface TransactionItem {
-  id: number;
-  icon?: any;
-  img?: any;
-  date: string;
-  label: string;
-  amount: number;
-  isSubtraction?: boolean;
-  isAddition?: boolean;
-}
+import {Transaction} from '../store/useTransactionsStore';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {useRoute} from '@react-navigation/native';
 
 interface LatestTransactionsProps {
-  data: TransactionItem[];
+  data: Transaction[];
 }
+
 export default function LatestTransactions({data}: LatestTransactionsProps) {
+  const route = useRoute();
+
   return (
-    <FlatList
-      data={data}
-      renderItem={({item}) => (
-        <TransactionCards
-          amount={item.amount}
-          date={item.date}
-          label={item.label}
-          icon={item.icon}
-          img={item.img}
-          isSubtraction={item.isSubtraction}
-          isAddition={item.isAddition}
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <FlatList
+          data={data}
+          className={`px-5 ${route.name === 'Home' ? 'mb-36' : 'mb-8'}`}
+          renderItem={({item}) => (
+            <TransactionCards
+              amount={item.amount}
+              date={item.date}
+              time={item.time}
+              label={item.label}
+              picture={item.picture}
+              icon={item.icon}
+              isSubtraction={item.isSubtraction}
+              isAddition={item.isAddition}
+            />
+          )}
+          keyExtractor={item => item.id.toString()}
         />
-      )}
-      keyExtractor={item => item.id.toString()}
-    />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

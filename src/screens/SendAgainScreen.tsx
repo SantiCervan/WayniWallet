@@ -12,6 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
 import {User} from '../types/user';
 import {useBalanceStore} from '../store/useBalanceStore';
+import {useTransactionsStore} from '../store/useTransactionsStore';
+import {Routes} from '../utils/constants';
 
 type RouteParams = {
   route: {
@@ -24,8 +26,10 @@ type RouteParams = {
 export default function SendAgainScreen({route}: RouteParams) {
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const balance = useBalanceStore(state => state.balance);
   const setBalance = useBalanceStore(state => state.setBalance);
+  const addTransaction = useTransactionsStore(state => state.addTransaction);
   const inputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
   const {selectedUser} = route.params;
@@ -42,15 +46,38 @@ export default function SendAgainScreen({route}: RouteParams) {
     setAmount(formatted);
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
+    setIsLoading(true);
     const numericAmount = Number(amount.replace(/\D/g, ''));
+
     if (numericAmount <= balance) {
-      setBalance(balance - numericAmount);
-      navigation.navigate('SuccessScreen', {
-        selectedUser,
-        amount,
+      const newTransaction = {
+        id: Date.now().toString(),
+        amount: numericAmount,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        label: `${selectedUser.name.first} ${selectedUser.name.last}`,
         notes,
-      });
+        picture: {
+          medium: selectedUser.picture.medium,
+        },
+        isSubtraction: true,
+        referenceNumber: selectedUser.login.uuid.slice(0, 8),
+      };
+
+      try {
+        await addTransaction(newTransaction);
+        setBalance(balance - numericAmount);
+        navigation.navigate(Routes.SUCCESS_SCREEN, {
+          selectedUser,
+          amount,
+          notes,
+        });
+      } catch (error) {
+        console.error('Error saving transaction:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -99,7 +126,11 @@ export default function SendAgainScreen({route}: RouteParams) {
       </View>
       <View className="px-5">
         <CustomButton
-          label="Proceed to Transfer"
+          label={
+            Number(amount.replace(/\D/g, '')) > balance
+              ? 'Insufficient funds'
+              : 'Proceed to Transfer'
+          }
           disabled={
             !amount ||
             Number(amount.replace(/\D/g, '')) <= 0 ||
@@ -107,7 +138,12 @@ export default function SendAgainScreen({route}: RouteParams) {
           }
           onPress={handlePress}
           bgColor="bg-[#0FD08B]"
-          txtColor="text-white"
+          txtColor={
+            Number(amount.replace(/\D/g, '')) > balance
+              ? 'text-red-500'
+              : 'text-white'
+          }
+          isLoading={isLoading}
         />
       </View>
     </HeaderContainer>
