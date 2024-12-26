@@ -7,6 +7,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SendAgainScreen from '../screens/SendAgainScreen';
 import SuccessScreen from '../screens/SuccessScreen';
+import {Routes} from '../utils/constants';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,7 +31,7 @@ const TabNavigator = () => {
 
           switch (route.name) {
             case 'Home':
-              iconSource = require('../assets/icons/home.png');
+              iconSource = require('../assets/icons/transactions.png');
               break;
             case 'Transfers':
               iconSource = require('../assets/icons/transfers.png');
@@ -52,9 +53,9 @@ const TabNavigator = () => {
         tabBarActiveTintColor: 'purple',
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Transfers" component={TransfersScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name={Routes.HOME} component={HomeScreen} />
+      <Tab.Screen name={Routes.TRANSFERS} component={TransfersScreen} />
+      <Tab.Screen name={Routes.PROFILE} component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
@@ -62,9 +63,9 @@ const TabNavigator = () => {
 const Tabs = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomeScreen" component={TabNavigator} />
-      <Stack.Screen name="SendAgain" component={SendAgainScreen} />
-      <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+      <Stack.Screen name={Routes.HOME_SCREEN} component={TabNavigator} />
+      <Stack.Screen name={Routes.SEND_AGAIN} component={SendAgainScreen} />
+      <Stack.Screen name={Routes.SUCCESS_SCREEN} component={SuccessScreen} />
     </Stack.Navigator>
   );
 };

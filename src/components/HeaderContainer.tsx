@@ -4,6 +4,7 @@ import BackButton from './BackButton';
 import {useNavigation} from '@react-navigation/native';
 import {useUserStore} from '../store/useUserStore';
 import {useBalanceStore} from '../store/useBalanceStore';
+import {Routes} from '../utils/constants';
 
 type HeaderContainerProps = {
   action: 'Back' | 'HomeScreen';
@@ -27,7 +28,7 @@ export default function HeaderContainer({
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('Profile');
+    navigation.navigate(Routes.PROFILE);
   };
 
   return (

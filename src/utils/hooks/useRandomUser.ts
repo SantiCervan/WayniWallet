@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {User} from '../types/user';
+import {User} from '../../types/user';
 
 interface RandomUserResponse {
   results: User[];
@@ -16,7 +16,6 @@ export const useRandomUser = () => {
     queryFn: async () => {
       const response = await fetch('https://randomuser.me/api/');
       const data = await response.json();
-      console.log('API Response:', data);
       return data;
     },
     staleTime: Infinity, // Prevents automatic refetching

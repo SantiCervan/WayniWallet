@@ -4,6 +4,7 @@ import ProfileCardInfo from '../components/ProfileCardInfo';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import {User} from '../types/user';
+import {Routes} from '../utils/constants';
 
 interface RouteParams {
   route: {
@@ -52,7 +53,7 @@ export default function SuccessScreen({route}: RouteParams) {
   };
 
   const handlePressHome = () => {
-    navigation.navigate('HomeScreen');
+    navigation.navigate(Routes.HOME_SCREEN);
   };
 
   return (
